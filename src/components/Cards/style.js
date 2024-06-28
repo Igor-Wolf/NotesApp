@@ -17,7 +17,9 @@ export const WrapperCard = styled.div`
 
     @media (max-width: 768px) {
     
-    width: 250px;
+    width: 270px;
+
+    margin: 0 -20px
 
     
     

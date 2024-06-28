@@ -12,10 +12,10 @@ export const Main = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 6rem;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0px;
   padding: 0px;
-  width:100%;
+  min-width:100vw;
 
   
 
@@ -38,4 +38,11 @@ export const BodyContent = styled.div`
     margin-top: 0;
   }
 
+`
+
+export const Spacing = styled.div`
+
+    height:60px;
+
+    
 `

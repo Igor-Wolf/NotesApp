@@ -5,7 +5,7 @@ import React from 'react';
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer";
 import { CardsContainer } from "@/components/CardsContainer";
-import { BodyContent, Main } from "@/app/styles"
+import { BodyContent, Main, Spacing } from "@/app/styles"
 import { CardsContainerComp } from "@/components/CardsContainerComp";
 import { CardsContainerCompRed } from "@/components/CardsContainerCompRed";
 import {MobileHeader} from '@/components/MobileHeader'
@@ -20,6 +20,7 @@ export default function Home() {
 </Header>
 <MobileHeader></MobileHeader>
       <BodyContent>
+      <Spacing></Spacing>
 
       
       

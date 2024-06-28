@@ -25,6 +25,10 @@ export const Wrapper = styled.div`
 
     width:100%;
 
+    @media (max-width: 768px) {
+    padding-bottom: 70px;
+  }
+
 `
 
 export const TextLink = styled.p`

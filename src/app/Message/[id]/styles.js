@@ -27,6 +27,10 @@ export const BoxMessage = styled.div`
     width: 70vw;
     padding: 1rem;
 
+    @media (max-width: 768px) {
+    width: 100vw;
+  }
+
 
 `
 

@@ -1,26 +1,27 @@
 "use client"
 import Image from "next/image";
 import styles from "./page.module.css";
-import React, { useState, useEffect } from 'react';
-import { Button } from "@/components/Button";
+import React from 'react';
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer";
-import { Cards } from "@/components/Cards";
 import { CardsContainer } from "@/components/CardsContainer";
-import { Main } from "@/app/styles"
+import { BodyContent, Main } from "@/app/styles"
 import { CardsContainerComp } from "@/components/CardsContainerComp";
 import { CardsContainerCompRed } from "@/components/CardsContainerCompRed";
-
+import {MobileHeader} from '@/components/MobileHeader'
 
 
 export default function Home() {
 
   return (
     <Main>
-
       <Header>
 
-      </Header>
+</Header>
+<MobileHeader></MobileHeader>
+      <BodyContent>
+
+      
       
       <CardsContainerCompRed>        
       </CardsContainerCompRed>
@@ -29,12 +30,15 @@ export default function Home() {
 
       <CardsContainerComp>
         
-      </CardsContainerComp>
+      </CardsContainerComp>    
       
       
-      
-      
+
+
+      </BodyContent>
       <Footer></Footer>
+
+      
     </Main>
   );
 }

@@ -7,7 +7,8 @@ import {
   Input,
   Textarea,
   TitleText,
-  Main
+  Main,
+  Spacing
 } from './styles';
 import { Button } from "@/components/Button";
 import { Header } from "@/components/Header";
@@ -16,6 +17,8 @@ import styles from "../page.module.css";
 import { Wrapper } from './styles';
 
 import { format } from 'date-fns';
+import { MobileHeader } from '@/components/MobileHeader';
+import { BodyContent } from '../styles';
 
 export default function Criar() {
   const [formData, setFormData] = useState({
@@ -87,9 +90,7 @@ export default function Criar() {
     console.log(formattedDateTime);
   };
 
-  const reset = () => {
-    localStorage.clear();
-  }
+ 
 
   // ---------------------------------------------------------------------------------------------
 
@@ -165,7 +166,10 @@ export default function Criar() {
   return (
     <Main>
       <Header />
+      <MobileHeader></MobileHeader>
+      
       <Wrapper>
+      <Spacing></Spacing>
         <TitleText>Criar nota</TitleText>
         <Form onSubmit={handleSubmit}>
           <FormGroup>
@@ -225,7 +229,7 @@ export default function Criar() {
             />
           </FormGroup>
           <FormGroup>
-            <Label htmlFor="deadLineDate">Data do Compromisso:</Label>
+            <Label htmlFor="deadLineDate">Data do Evento:</Label>
             <Input
               type="date"
               id="date"
@@ -235,7 +239,7 @@ export default function Criar() {
             />
           </FormGroup>
           <FormGroup>
-            <Label htmlFor="deadLineTime">Hora do Compromisso:</Label>
+            <Label htmlFor="deadLineTime">Hora do Evento:</Label>
             <Input
               type="time"
               id="time"
@@ -257,7 +261,11 @@ export default function Criar() {
           <Button title="Criar" variant='secondary' type='submit' />
         </Form>
       </Wrapper>
-      <Button title="Resetar" variant='secondary' onClick={reset} />
+
+
+
+      
+      
       <Footer />
     </Main>
   );

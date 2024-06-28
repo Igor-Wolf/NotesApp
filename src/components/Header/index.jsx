@@ -41,7 +41,12 @@ const Header = () => {
           </li>
           <li>
             <Link  href={"/Compromissos"}>
-            <Row>Compromissos</Row>
+            <Row>Event</Row>
+            </Link>
+          </li>
+          <li>
+            <Link  href={"/Config"}>
+            <Row>Config</Row>
             </Link>
           </li>
       </MenuRight>    

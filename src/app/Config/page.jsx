@@ -1,6 +1,5 @@
 "use client"
 import Image from "next/image";
-
 import styles from "../page.module.css";
 import { Button } from "@/components/Button";
 import { Header } from "@/components/Header"
@@ -10,17 +9,16 @@ import { MobileHeader } from "@/components/MobileHeader";
 
 
 
-
-
-
-
 const alerta = () => {
 
   alert("Funcionou")
 }
 
 
-export default function Notas() {
+export default function Compromissos() {
+  const reset = () => {
+    localStorage.clear();
+  }
   return (
     <Main>
 
@@ -29,8 +27,8 @@ export default function Notas() {
       </Header>
       <MobileHeader></MobileHeader>
       
-      <p>notas</p>
       
+      <Button title="Resetar" variant='secondary' onClick={reset} />
       
       <Footer></Footer>
     </Main>

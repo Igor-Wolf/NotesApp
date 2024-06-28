@@ -26,7 +26,7 @@ const CardsContainerCompRed = () => {
     
     <ContainerCards> 
       <Wrapper>
-        <TitleCard>Ultimos Compromissos</TitleCard>
+        <TitleCard>Eventos em Atraso</TitleCard>
         
         <BoxCard>
         

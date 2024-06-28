@@ -3,14 +3,19 @@ import styled from "styled-components";
 export const Container = styled.div`
 
     width: 100%;
-    height: 50px;
+    height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;  
     background-color: #141414;
     padding: 10px 30px; 
-    
+    z-index: 5000;
+    position: fixed;
 
+    @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 0;
+  } 
 `
 
 export const TitlePage = styled.div`
@@ -29,6 +34,11 @@ export const MenuRight = styled.div`
     align-items: center;
     justify-content: center;
     gap: 1rem;
+
+     @media (max-width: 768px) {
+    display:none;
+  } 
+
 
 `
 

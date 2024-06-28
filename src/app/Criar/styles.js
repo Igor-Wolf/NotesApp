@@ -5,8 +5,8 @@ export const Main = styled.div`
 
 
 
-    background-color: #141414;
-    display: flex;
+  background-color: #141414;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -31,7 +31,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex: 1;
-  padding-bottom: 1rem
+  padding-bottom: 1rem;
 
 `
 
@@ -53,6 +53,9 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  border-radius:1rem;
+  
   
   
 `;
@@ -63,19 +66,28 @@ export const FormGroup = styled.div`
   border: 1px solid black;
   width: 90vw;
   max-width: 1000px;
+  border-radius:1rem;
 `;
 
 export const Label = styled.label`
   display: block;
   margin-bottom: 5px;
   background-color: transparent;
+
+  border-radius:1rem;
+  padding: 0.5rem;
+  font-weight: 600;
 `;
 
 export const Input = styled.input`
   width: 100%;
   padding: 8px;
   box-sizing: border-box; 
-  
+
+  border-radius:1rem;
+
+  background-color: #141414;
+  color: white;
 `;
 
 export const Textarea = styled.textarea`
@@ -83,4 +95,31 @@ export const Textarea = styled.textarea`
   min-height: 500px;
   padding: 8px;
   box-sizing: border-box;
+
+  border-radius:1rem;
+  background-color: #141414;
+  color: white;
 `;
+
+
+export const BodyContent = styled.div`
+
+  background-color: #141414;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem;
+  margin-top: 60px;  
+  margin: 0px;
+  padding: 0px;
+  
+
+`
+
+export const Spacing = styled.div`
+
+    height:60px;
+
+    
+`

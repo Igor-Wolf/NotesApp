@@ -5,6 +5,7 @@ import { Button } from "@/components/Button";
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer";
 import { Main } from "./styles";
+import { MobileHeader } from "@/components/MobileHeader";
 
 
 
@@ -21,6 +22,7 @@ export default function Compromissos() {
       <Header>
 
       </Header>
+      <MobileHeader></MobileHeader>
       
       <p>Compromissos</p>
       <Button title="Começar agora" variant='secondary' onClick={alerta} type='button'></Button>

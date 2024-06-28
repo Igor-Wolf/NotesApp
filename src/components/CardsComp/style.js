@@ -64,7 +64,7 @@ export const InfoCard = styled.div`
 export const StatusCard = styled.div`
 
     
-    background-color: ${props => props.bgColor};
+    background-color: ${(props) => props.bgcolor || 'defaultColor'};
     width: 35px;
     height: 35px;
     border-radius: 2rem;

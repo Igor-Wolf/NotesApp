@@ -33,7 +33,7 @@ const CardsComp = ({title, description, date, deadLine, status, id}) => {
 
 
             </InfoCard>
-            <StatusCard bgColor={getColor(status)}></StatusCard>
+            <StatusCard bgcolor={getColor(status)}></StatusCard>
 
 
           </RowInfo>

@@ -13,12 +13,9 @@ import {
 import { Button } from "@/components/Button";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import styles from "../page.module.css";
-import { Wrapper } from './styles';
-
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import { MobileHeader } from '@/components/MobileHeader';
-import { BodyContent } from '../styles';
+import { Wrapper } from './styles';
 
 export default function Criar() {
   const [formData, setFormData] = useState({
@@ -44,9 +41,8 @@ export default function Criar() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Obtém a data e hora formatadas
-    const  formattedTime= new Date().toLocaleTimeString('pt-BR');
-    const  formattedDateTime= new Date().toLocaleDateString('pt-BR');
+    const formattedTime = new Date().toLocaleTimeString('pt-BR');
+    const formattedDateTime = new Date().toLocaleDateString('pt-BR');
     const storedList = JSON.parse(localStorage.getItem('formDataList')) || [];
 
     const verify = () => {
@@ -57,7 +53,6 @@ export default function Criar() {
       }
     }
 
-    // Atualiza o estado `formData` com a data formatada
     const updatedFormData = {
       ...formData,
       date: formattedDateTime,
@@ -66,33 +61,27 @@ export default function Criar() {
       type: 'nota',
       deadLineDate: null,
       deadLineTime: null,
-      status:null,
+      status: null,
     };
 
-    // Salva os dados no localStorage
     const updatedList = [...storedList, updatedFormData];
     localStorage.setItem('formDataList', JSON.stringify(updatedList));
 
-    // Reinicia o estado `formData` após o envio do formulário
     setFormData({
-    id: '',
-    title: '',
-    description: '',
-    message: '',
-    date: '',
-    type: '',
-    deadLineDate: '',
-    deadLineTime: '',
-    status: '',
+      id: '',
+      title: '',
+      description: '',
+      message: '',
+      date: '',
+      type: '',
+      deadLineDate: '',
+      deadLineTime: '',
+      status: '',
     });
 
     console.log(updatedList);
     console.log(formattedDateTime);
   };
-
- 
-
-  // ---------------------------------------------------------------------------------------------
 
   const [formData2, setFormData2] = useState({
     id: '',
@@ -117,9 +106,8 @@ export default function Criar() {
   const handleSubmit2 = (e) => {
     e.preventDefault();
 
-    // Obtém a data e hora formatadas
-    const  formattedTime2= new Date().toLocaleTimeString('pt-BR');
-    const  formattedDateTime2= new Date().toLocaleDateString('pt-BR');
+    const formattedTime2 = new Date().toLocaleTimeString('pt-BR');
+    const formattedDateTime2 = new Date().toLocaleDateString('pt-BR');
     const storedList = JSON.parse(localStorage.getItem('formDataList')) || [];
 
     const verify2 = () => {
@@ -130,7 +118,9 @@ export default function Criar() {
       }
     }
 
-    // Atualiza o estado `formData2` com a data formatada
+    // Ajustando a data do deadline antes de salvar
+    const adjustedDeadLineDate = format(parseISO(formData2.deadLineDate), 'dd/MM/yyyy');
+
     const updatedFormData2 = {
       ...formData2,
       date: formattedDateTime2,
@@ -138,25 +128,22 @@ export default function Criar() {
       id: verify2(),
       type: 'compromisso',
       status: "InTime",
-      deadLineDate: format(new Date(formData2.deadLineDate), 'dd/MM/yyyy'),
-      
+      deadLineDate: adjustedDeadLineDate,
     };
 
-    // Salva os dados no localStorage
     const updatedList2 = [...storedList, updatedFormData2];
     localStorage.setItem('formDataList', JSON.stringify(updatedList2));
 
-    // Reinicia o estado `formData2` após o envio do formulário
     setFormData2({
-    id: '',
-    title: '',
-    description: '',
-    message: '',
-    date: '',
-    type: '',
-    deadLineDate: '',
-    deadLineTime: '',
-    status: '',
+      id: '',
+      title: '',
+      description: '',
+      message: '',
+      date: '',
+      type: '',
+      deadLineDate: '',
+      deadLineTime: '',
+      status: '',
     });
 
     console.log(updatedList2);
@@ -166,10 +153,9 @@ export default function Criar() {
   return (
     <Main>
       <Header />
-      <MobileHeader></MobileHeader>
-      
+      <MobileHeader />
       <Wrapper>
-      <Spacing></Spacing>
+        <Spacing />
         <TitleText>Criar nota</TitleText>
         <Form onSubmit={handleSubmit}>
           <FormGroup>
@@ -204,7 +190,7 @@ export default function Criar() {
           <Button title="Criar" variant='secondary' type='submit' />
         </Form>
       </Wrapper>
-      {/* //---------------------------------------------------------------------------------------------------------- */}
+
       <Wrapper>
         <TitleText>Criar Compromisso</TitleText>
         <Form onSubmit={handleSubmit2}>
@@ -246,7 +232,7 @@ export default function Criar() {
               name="deadLineTime"
               value={formData2.deadLineTime}
               onChange={handleChange2}
-              step="1" // Permite precisão de segundos
+              step="1"
             />
           </FormGroup>
           <FormGroup>
@@ -261,11 +247,6 @@ export default function Criar() {
           <Button title="Criar" variant='secondary' type='submit' />
         </Form>
       </Wrapper>
-
-
-
-      
-      
       <Footer />
     </Main>
   );

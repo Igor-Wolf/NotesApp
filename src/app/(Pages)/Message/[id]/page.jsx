@@ -54,7 +54,8 @@ export default function Message() {
   }
 
   const editar = () => {
-      
+    
+    router.push(`/Editar/${params.id}`);
     
   }
 
@@ -96,6 +97,7 @@ export default function Message() {
         </BoxMessage>  
         <Button title="Concluir" variant='secondary' onClick={concluir} />
         <Button title="Em Andamento" variant='secondary' onClick={andamento} />
+        <Button title="Editar" variant='secondary' onClick={editar} />
         <Button title="Excluir" variant='secondary' onClick={excluir} />
 
 

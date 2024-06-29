@@ -192,7 +192,7 @@ export default function Criar() {
       </Wrapper>
 
       <Wrapper>
-        <TitleText>Criar Compromisso</TitleText>
+        <TitleText>Criar Evento</TitleText>
         <Form onSubmit={handleSubmit2}>
           <FormGroup>
             <Label htmlFor="title">Titulo:</Label>

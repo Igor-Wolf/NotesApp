@@ -22,7 +22,7 @@ const CardsContainerComp = () => {
       storedList.forEach((item) => {
         console.log(`Item Deadline Time: ${item.deadLineTime}, Current Date: ${currentTime}`);
         console.log(item.status)
-        if (item.deadLineDate && item.deadLineTime) {
+        if ((item.deadLineDate && item.deadLineTime) && item.status === 'InTime') {
           const itemDate = format(parse(item.deadLineDate, 'dd/MM/yyyy', new Date()), 'dd/MM/yyyy');
           const itemTime = item.deadlineTime;
           

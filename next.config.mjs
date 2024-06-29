@@ -5,5 +5,7 @@ const nextConfig = {
     },
   };
   
-  export default nextConfig;
+export default nextConfig;
   
+
+// essa parte é muito importante para o carregamento do styled component, principalmente no recarregamento da página e no primeiro carregamento do site

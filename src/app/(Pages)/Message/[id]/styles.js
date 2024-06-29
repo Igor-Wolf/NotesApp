@@ -34,6 +34,13 @@ export const BoxMessage = styled.div`
 
 `
 
+export const Spacing = styled.div`
+
+    height:60px;
+
+    
+`
+
 
 
 export const TitleMessage = styled.p`
@@ -90,6 +97,14 @@ export const TimeCreate = styled.p`
 
 font-size: 1.5rem;
 padding: .5rem;
+
+`
+
+export const Status = styled.p`
+
+font-size: 1.5rem;
+padding: .5rem;
+
 
 `
 

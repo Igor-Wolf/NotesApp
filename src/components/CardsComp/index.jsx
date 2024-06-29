@@ -16,7 +16,7 @@ const CardsComp = ({title, description, date, deadLine, status, id}) => {
     <Link href={`/Message/${id}`}>
         <WrapperCard>
           <TitleCard>
-            <strong>Titulo:</strong> {title}
+            <strong>{title}</strong> 
           </TitleCard>
           {/* <DescriptionCard>
             Descrição: {description}

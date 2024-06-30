@@ -5,12 +5,12 @@ export const Container = styled.div`
     width: 100vw;
     height: 60px;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;  
     background-color: #141414;
     padding: 10px 30px; 
-    z-index: 5000;
-    position: fixed;
+    
 
     @media (max-width: 768px) {
     flex-direction: column;
@@ -23,7 +23,7 @@ export const TitlePage = styled.div`
     font-size: 2.5rem;
     font-weight: 800;
     font-family: Arial, Helvetica, sans-serif;
-    color: #FF9900
+    color: #FF9900;
 
 `
 
@@ -51,6 +51,16 @@ export const Row = styled.div`
 
         color: #9a9a9c
     }
+
+`
+
+export const External = styled.div`
+
+  display:flex;
+  flex-direction:column;
+  width: "100%";
+  z-index: 5000;
+  position: fixed;
 
 `
 

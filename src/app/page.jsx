@@ -17,21 +17,21 @@ export default function Home() {
     <Main>
       <Header>
 
-</Header>
-<MobileHeader></MobileHeader>
+      </Header>
+      <MobileHeader></MobileHeader>
       <BodyContent>
-      <Spacing></Spacing>
+        <Spacing></Spacing>
 
       
       
-      <CardsContainerCompRed>        
-      </CardsContainerCompRed>
-      <CardsContainer>
-      </CardsContainer>
+        <CardsContainerCompRed>        
+        </CardsContainerCompRed>
+        <CardsContainer>
+        </CardsContainer>
 
-      <CardsContainerComp>
+        <CardsContainerComp>
         
-      </CardsContainerComp>    
+        </CardsContainerComp>    
       
       
 

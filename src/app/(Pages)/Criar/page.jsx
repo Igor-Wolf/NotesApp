@@ -45,6 +45,23 @@ const eventSchema = yup.object({
   message: yup.string().required("Preenchimento obrigatório")
 }).required();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export default function Criar() {
   const {
     control: control1,
@@ -135,6 +152,29 @@ export default function Criar() {
     console.log(updatedList2);
     console.log(formattedDateTime2);
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <Main>

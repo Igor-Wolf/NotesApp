@@ -18,3 +18,10 @@ export const Main = styled.div`
 
 
 `
+
+export const Spacing = styled.div`
+
+    height:60px;
+
+    
+`

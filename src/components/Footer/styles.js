@@ -10,6 +10,12 @@ export const TextContent = styled.div`
     flex-direction: row;
     gap: 0.5rem; 
     color: white;
+
+    @media (max-width: 768px) {
+
+        color: black;
+    }
+    
 `
 
 export const TextContentExternal = styled.div`
@@ -24,9 +30,14 @@ export const TextContentExternal = styled.div`
 export const Wrapper = styled.div`
 
     width:100%;
+    
 
     @media (max-width: 768px) {
-    padding-bottom: 70px;
+    padding-bottom: 80px;
+    background-color: #FF9900;
+    
+
+
   }
 
 `

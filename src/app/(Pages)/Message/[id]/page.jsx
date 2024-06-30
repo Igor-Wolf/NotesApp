@@ -15,7 +15,8 @@ import {
   TimeCreate,
   BoxMessage,
   RowDate,
-  Status
+  Status,
+  ButtonsBox
     
  } from "./styles";
 
@@ -104,10 +105,14 @@ export default function Message() {
           <MessageContent><strong>Mensagem:</strong> <br /> <br /> {note[0].message}</MessageContent>
 
         </BoxMessage>  
-        <Button title="Concluir" variant='secondary' onClick={concluir} />
-        <Button title="Em Andamento" variant='secondary' onClick={andamento} />
-        <Button title="Editar" variant='secondary' onClick={editar} />
-        <Button title="Excluir" variant='secondary' onClick={excluir} />
+        <ButtonsBox>
+          <Button title="Concluir" variant='secondary' onClick={concluir} />
+          <Button title="Em Andamento" variant='secondary' onClick={andamento} />
+          <Button title="Editar" variant='secondary' onClick={editar} />
+          <Button title="Excluir" variant='secondary' onClick={excluir} />
+
+        </ButtonsBox>
+        
 
 
       </BodyContent>

@@ -14,6 +14,7 @@ export const WrapperCard = styled.div`
     color: black;
     border-radius: 1rem;
     padding: 0.5rem;
+    gap: 0.5rem;
 
     @media (max-width: 768px) {
     

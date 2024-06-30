@@ -6,6 +6,7 @@ import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer";
 import { Main } from "./styles";
 import { MobileHeader } from "@/components/MobileHeader";
+import { Spacing } from "@/app/styles";
 
 
 
@@ -26,6 +27,7 @@ export default function Compromissos() {
 
       </Header>
       <MobileHeader></MobileHeader>
+      <Spacing></Spacing>
       
       
       <Button title="Resetar" variant='secondary' onClick={reset} />

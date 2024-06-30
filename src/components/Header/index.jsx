@@ -4,13 +4,14 @@ import {
   Container,
   TitlePage,
   Row,
-  MenuRight
+  MenuRight,
+  External
 } from './styles'
 import {Divisor} from '@/components/Divisor'
 
 const Header = () => {
   return (
-    <div style={{display:'flex', flexDirection:'column', width: "100%"}}>
+    <External>
     <Container>
       
       <ul>
@@ -53,7 +54,7 @@ const Header = () => {
       
     </Container>
       <Divisor></Divisor>
-      </div>  
+    </External>  
 
   )
 }

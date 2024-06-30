@@ -14,6 +14,8 @@ export const Container = styled.div`
 
     padding: 1rem;
 
+    
+
     @media (max-width: 768px) {
     display:flex;
   } 
@@ -37,7 +39,7 @@ export const Icon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem
+  font-size: 1.5rem;
 `
 
 export const TextMenu = styled.p`

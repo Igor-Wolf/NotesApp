@@ -8,9 +8,13 @@ export const ButtonContainer = styled.button`
 
     color: #FFFF;
     padding: 2px 12px;
+    margin: 0.5rem;
     min-width: 120px;
     max-width:300px;
     width: 80%;
+    font-size: 1rem;
+    font-weight: 500;
+    
 
 
     ${({ variant }) => variant !== "primary" && css`

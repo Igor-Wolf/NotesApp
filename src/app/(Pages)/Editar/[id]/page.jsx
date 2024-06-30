@@ -8,7 +8,8 @@ import {
   Textarea,
   TitleText,
   Main,
-  Spacing
+  Spacing,
+  ErrorBox
 } from './styles';
 import { Button } from "@/components/Button";
 import { Header } from "@/components/Header";
@@ -19,18 +20,32 @@ import { Wrapper } from './styles';
 
 import { useParams, useRouter } from "next/navigation";
 
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+import { useForm, Controller } from 'react-hook-form';
+
+const noteSchema = yup.object({
+  title: yup.string().min(6, "No mínimo 6 caracteres").max(30, "No máximo 30 caracteres").required("Título é obrigatório"),
+  description: yup.string().max(60, "No máximo 60 caracteres").required("Descrição é obrigatória"),
+  message: yup.string().required("Preenchimento obrigatório")
+}).required();
+
+const eventSchema = yup.object({
+  title: yup.string().min(6, "No mínimo 6 caracteres").max(30, "No máximo 30 caracteres").required("Título é obrigatório"),
+  description: yup.string().max(60, "No máximo 60 caracteres").required("Descrição é obrigatória"),
+  deadLineDate: yup.date().typeError('Data inválida').required("Data do Evento é obrigatória"),
+  deadLineTime: yup.string().required("Hora do Evento é obrigatória"),
+  message: yup.string().required("Preenchimento obrigatório")
+}).required();
 
 export default function Criar() {
-
   const params = useParams();
   const router = useRouter();
 
   const storedList = JSON.parse(localStorage.getItem('formDataList')) || [];
   const note = storedList.filter(item => item.id === parseInt(params.id));
   const itemIndex = storedList.findIndex(item => item.id === parseInt(params.id));
-  console.log(note)  
-  console.log(storedList[itemIndex].status)
-
 
   const getInitialValue = (field) => {
     switch (field) {
@@ -38,18 +53,33 @@ export default function Criar() {
         return note[0].type === "nota" ? note[0].description : '';
       case 'title':
         return note[0].type === "nota" ? note[0].title : '';
-      
       case 'message':
         return note[0].type === "nota" ? note[0].message : '';
-      // Adicione aqui outras condições para os outros atributos
       default:
         return '';
     }
   };
 
-
-
-
+  const getInitialValue2 = (field) => {
+    switch (field) {
+      case 'description':
+        return note[0].type === "compromisso" ? note[0].description : '';
+      case 'title':
+        return note[0].type === "compromisso" ? note[0].title : '';
+      case 'message':
+        return note[0].type === "compromisso" ? note[0].message : '';
+      case 'deadLineTime':
+        return note[0].type === "compromisso" ? note[0].deadLineTime : '';
+      case 'deadLineDate':
+        if (note[0].type === "compromisso") {
+          const parsedDate = parse(note[0].deadLineDate, 'dd/MM/yyyy', new Date());
+          const formattedDate = format(parsedDate, 'yyyy-MM-dd'); 
+          return formattedDate;
+        }
+      default:
+        return '';
+    }
+  };
 
   const [formData, setFormData] = useState({
     id: '',
@@ -63,92 +93,6 @@ export default function Criar() {
     status: '',
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const formattedTime = new Date().toLocaleTimeString('pt-BR');
-    const formattedDateTime = new Date().toLocaleDateString('pt-BR');
-    const storedList = JSON.parse(localStorage.getItem('formDataList')) || [];
-
-    const verify = () => {
-      if (storedList.length > 0) {
-        return storedList[storedList.length - 1].id + 1;
-      } else {
-        return 1;
-      }
-    }
-
-    const updatedFormData = {
-      ...formData,
-      date: formattedDateTime,
-      time: formattedTime,
-      id: verify(),
-      type: 'nota',
-      deadLineDate: null,
-      deadLineTime: null,
-      status: null,
-    };
-
-    storedList[itemIndex].title = updatedFormData.title
-    storedList[itemIndex].description = updatedFormData.description
-    storedList[itemIndex].message = updatedFormData.message
-    storedList[itemIndex].type = 'nota'
-    storedList[itemIndex].deadLineTime = updatedFormData.deadLineTime
-    storedList[itemIndex].deadLineDate = updatedFormData.deadLineDate
-
-
-    localStorage.setItem('formDataList', JSON.stringify(storedList));
-    router.push(`/`); 
-
-  };
-
-
-
-
-
-
-
-  const getInitialValue2 = (field) => {
-    switch (field) {
-      case 'description':
-        return note[0].type === "compromisso" ? note[0].description : '';
-      case 'title':
-        return note[0].type === "compromisso" ? note[0].title : '';
-      
-      case 'message':
-        return note[0].type === "compromisso" ? note[0].message : '';
-      
-      case 'deadLineTime':
-        return note[0].type === "compromisso" ? note[0].deadLineTime : '';
-      case 'deadLineDate':
-        if (note[0].type === "compromisso") {
-          const parsedDate = parse(note[0].deadLineDate, 'dd/MM/yyyy', new Date());
-          const formattedDate = format(parsedDate, 'yyyy-MM-dd'); 
-          return note[0].type === "compromisso" ? formattedDate : '';
-        }     
-        
-        
-      
-      // Adicione aqui outras condições para os outros atributos
-      default:
-        return '';
-    }
-  };
-
-
-
-
-
-
-
   const [formData2, setFormData2] = useState({
     id: '',
     title: getInitialValue2("title"),
@@ -161,56 +105,68 @@ export default function Criar() {
     status: '',
   });
 
-  const handleChange2 = (e) => {
-    const { name, value } = e.target;
-    setFormData2({
-      ...formData2,
-      [name]: value,
-    });
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(noteSchema),
+    defaultValues: formData,
+  });
+
+  const {
+    control: control2,
+    handleSubmit: handleSubmit2,
+    formState: { errors: errors2 },
+  } = useForm({
+    resolver: yupResolver(eventSchema),
+    defaultValues: formData2,
+  });
+
+  const onSubmit = (data) => {
+    const formattedTime = new Date().toLocaleTimeString('pt-BR');
+    const formattedDateTime = new Date().toLocaleDateString('pt-BR');
+    const storedList = JSON.parse(localStorage.getItem('formDataList')) || [];
+
+    const updatedFormData = {
+      ...data,
+      date: formattedDateTime,
+      time: formattedTime,
+      id: parseInt(params.id),
+      type: 'nota',
+      deadLineDate: null,
+      deadLineTime: null,
+      status: null,
+    };
+
+    storedList[itemIndex] = updatedFormData;
+    localStorage.setItem('formDataList', JSON.stringify(storedList));
+    router.push(`/`);
   };
 
-  const handleSubmit2 = (e) => {
-    e.preventDefault();
-
+  const onSubmit2 = (data) => {
     const formattedTime2 = new Date().toLocaleTimeString('pt-BR');
     const formattedDateTime2 = new Date().toLocaleDateString('pt-BR');
     const storedList = JSON.parse(localStorage.getItem('formDataList')) || [];
 
-    const verify2 = () => {
-      if (storedList.length > 0) {
-        return storedList[storedList.length - 1].id + 1;
-      } else {
-        return 1;
-      }
-    }
 
-    // Ajustando a data do deadline antes de salvar
-    const adjustedDeadLineDate = format(parseISO(formData2.deadLineDate), 'dd/MM/yyyy');
+    var isodate = data.deadLineDate;
+    var adjustedDeadLineDate = isodate.toLocaleDateString('pt-BR');
+
 
     const updatedFormData2 = {
-      ...formData2,
+      ...data,
       date: formattedDateTime2,
       time: formattedTime2,
-      id: verify2(),
+      id: parseInt(params.id),
       type: 'compromisso',
       status: "InTime",
       deadLineDate: adjustedDeadLineDate,
     };
 
-
-    storedList[itemIndex].title = updatedFormData2.title
-    storedList[itemIndex].description = updatedFormData2.description
-    storedList[itemIndex].message = updatedFormData2.message 
-    storedList[itemIndex].deadLineDate = updatedFormData2.deadLineDate
-    storedList[itemIndex].deadLineTime = updatedFormData2.deadLineTime
-    storedList[itemIndex].type = 'compromisso'
-    storedList[itemIndex].status = 'InTime'
-
+    storedList[itemIndex] = updatedFormData2;
     localStorage.setItem('formDataList', JSON.stringify(storedList));
-    router.push(`/`); 
-
-
-
+    router.push(`/`);
   };
 
   return (
@@ -220,97 +176,85 @@ export default function Criar() {
       <Wrapper>
         <Spacing />
         <TitleText>Editar nota</TitleText>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
             <Label htmlFor="title">Titulo:</Label>
-            <Input
-              type="text"
-              id="title"
+            <Controller
               name="title"
-              value={formData.title}
-              onChange={handleChange}
+              control={control}
+              render={({ field }) => <Input {...field} />}
             />
+            {errors.title && <ErrorBox>{errors.title.message}</ErrorBox>}
           </FormGroup>
           <FormGroup>
             <Label htmlFor="description">Descrição:</Label>
-            <Input
-              type="text"
-              id="description"
+            <Controller
               name="description"
-              value={formData.description}
-              onChange={handleChange}              
+              control={control}
+              render={({ field }) => <Input {...field} />}
             />
+            {errors.description && <ErrorBox>{errors.description.message}</ErrorBox>}
           </FormGroup>
           <FormGroup>
             <Label htmlFor="message">Mensagem:</Label>
-            <Textarea
-              id="message"
+            <Controller
               name="message"
-              value={formData.message}
-              onChange={handleChange}
-            ></Textarea>
+              control={control}
+              render={({ field }) => <Textarea {...field} />}
+            />
+            {errors.message && <ErrorBox>{errors.message.message}</ErrorBox>}
           </FormGroup>
           <Button title="Editar" variant='secondary' type='submit' />
         </Form>
       </Wrapper>
 
-      
-
-
-
-
       <Wrapper>
         <TitleText>Editar Evento</TitleText>
-        <Form onSubmit={handleSubmit2}>
+        <Form onSubmit={handleSubmit2(onSubmit2)}>
           <FormGroup>
             <Label htmlFor="title">Titulo:</Label>
-            <Input
-              type="text"
-              id="title"
+            <Controller
               name="title"
-              value={formData2.title}
-              onChange={handleChange2}
+              control={control2}
+              render={({ field }) => <Input {...field} />}
             />
+            {errors2.title && <ErrorBox>{errors2.title.message}</ErrorBox>}
           </FormGroup>
           <FormGroup>
             <Label htmlFor="description">Descrição:</Label>
-            <Input
-              type="text"
-              id="description"
+            <Controller
               name="description"
-              value={formData2.description}
-              onChange={handleChange2}
+              control={control2}
+              render={({ field }) => <Input {...field} />}
             />
+            {errors2.description && <ErrorBox>{errors2.description.message}</ErrorBox>}
           </FormGroup>
           <FormGroup>
             <Label htmlFor="deadLineDate">Data do Evento:</Label>
-            <Input
-              type="date"
-              id="date"
+            <Controller
               name="deadLineDate"
-              value={formData2.deadLineDate}
-              onChange={handleChange2}
+              control={control2}
+              render={({ field }) => <Input type="date" {...field} />}
             />
+            {errors2.deadLineDate && <ErrorBox>{errors2.deadLineDate.message}</ErrorBox>}
           </FormGroup>
           <FormGroup>
             <Label htmlFor="deadLineTime">Hora do Evento:</Label>
-            <Input
-              type="time"
-              id="time"
+            <Controller
               name="deadLineTime"
-              value={formData2.deadLineTime}
-              onChange={handleChange2}
-              step="1"
+              control={control2}
+              render={({ field }) => <Input type="time" step="1" {...field} />}
             />
+            {errors2.deadLineTime && <ErrorBox>{errors2.deadLineTime.message}</ErrorBox>}
           </FormGroup>
           <FormGroup>
             <Label htmlFor="message">Mensagem:</Label>
-            <Textarea
-              id="message"
+            <Controller
               name="message"
-              value={formData2.message}
-              onChange={handleChange2}
-            ></Textarea>
+              control={control2}
+              render={({ field }) => <Textarea {...field} />}
+            />
+            {errors2.message && <ErrorBox>{errors2.message.message}</ErrorBox>}
           </FormGroup>
           <Button title="Editar" variant='secondary' type='submit' />
         </Form>

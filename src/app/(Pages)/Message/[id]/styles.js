@@ -23,6 +23,8 @@ export const BoxMessage = styled.div`
     display: flex;
     flex-direction: column;
     background-color: white;
+    border-radius:1rem;
+    margin-bottom: 1rem;
     
     width: 70vw;
     padding: 1rem;
@@ -113,5 +115,19 @@ export const RowDate = styled.div`
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
+
+`
+
+export const ButtonsBox = styled.div`
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  margin-bottom: 1rem;
+
+
+
 
 `

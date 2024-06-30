@@ -123,3 +123,11 @@ export const Spacing = styled.div`
 
     
 `
+
+export const ErrorBox = styled.div`
+
+    padding: 0.5rem;
+    color: red;
+    font-weight: 600;
+
+`

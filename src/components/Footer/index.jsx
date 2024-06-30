@@ -1,16 +1,19 @@
+'use client'
 import React, { useState, useEffect } from 'react';
 import { TextContent, Wrapper, TextLink, TextContentExternal } from './styles';
 import { Divisor } from '../Divisor';
 import Link from 'next/link';
 
 const Footer = () => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
 
+    // Definimos o valor inicial e adicionamos o listener de resize
+    handleResize();
     window.addEventListener('resize', handleResize);
 
     // Cleanup function to remove the event listener
@@ -24,7 +27,7 @@ const Footer = () => {
       <Divisor />
       <TextContentExternal>
         <TextContent>
-          <p>© 2024. Todos os Direitos Reservados à Igor Barbosa. Desenvolvido por <a href="https://github.com/Igor-Wolf" style={{ fontWeight: 600, color: isMobile ? 'black' : 'white' }}> IB</a>
+          <p>© 2024. Todos os Direitos Reservados à Igor Barbosa. Desenvolvido por <a href="https://github.com/Igor-Wolf" style={{ fontWeight: 600, color: isMobile ? 'black' : 'white' }} > IB </a>
           </p>
         </TextContent>
       </TextContentExternal>

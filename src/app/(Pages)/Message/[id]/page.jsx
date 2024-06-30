@@ -85,10 +85,19 @@ export default function Message() {
             <TimeCreate><strong>Hora de Criação:</strong> {note[0].time}</TimeCreate>
           </RowDate>
 
+          
+
+          {note[0].type === "compromisso" ?    
+          
+        
           <RowDate>
-            <DateEvent><strong>Data do Evento:</strong> {note[0].deadLineDate}</DateEvent>
-            <TimeEvent><strong>Hora do Evento:</strong> {note[0].deadLineTime}</TimeEvent>
-          </RowDate>
+          <DateEvent><strong>Data do Evento:</strong> {note[0].deadLineDate}</DateEvent>
+          <TimeEvent><strong>Hora do Evento:</strong> {note[0].deadLineTime}</TimeEvent>
+        </RowDate> : null      
+        
+        
+        }
+          
           
           {/* <Status><strong>Status:</strong> {note[0].status}</Status> */}
           

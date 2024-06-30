@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/Button";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { format, parseISO } from 'date-fns';
+import { format, parseISO, parse } from 'date-fns';
 import { MobileHeader } from '@/components/MobileHeader';
 import { Wrapper } from './styles';
 
@@ -101,6 +101,10 @@ export default function Criar() {
     storedList[itemIndex].description = updatedFormData.description
     storedList[itemIndex].message = updatedFormData.message
     storedList[itemIndex].type = 'nota'
+    storedList[itemIndex].deadLineTime = updatedFormData.deadLineTime
+    storedList[itemIndex].deadLineDate = updatedFormData.deadLineDate
+
+
     localStorage.setItem('formDataList', JSON.stringify(storedList));
     router.push(`/`); 
 
@@ -121,6 +125,18 @@ export default function Criar() {
       
       case 'message':
         return note[0].type === "compromisso" ? note[0].message : '';
+      
+      case 'deadLineTime':
+        return note[0].type === "compromisso" ? note[0].deadLineTime : '';
+      case 'deadLineDate':
+        if (note[0].type === "compromisso") {
+          const parsedDate = parse(note[0].deadLineDate, 'dd/MM/yyyy', new Date());
+          const formattedDate = format(parsedDate, 'yyyy-MM-dd'); 
+          return note[0].type === "compromisso" ? formattedDate : '';
+        }     
+        
+        
+      
       // Adicione aqui outras condições para os outros atributos
       default:
         return '';
@@ -140,8 +156,8 @@ export default function Criar() {
     message: getInitialValue2("message"),
     date: '',
     type: '',
-    deadLineDate: '',
-    deadLineTime: '',
+    deadLineDate: getInitialValue2("deadLineDate"),
+    deadLineTime: getInitialValue2("deadLineTime"),
     status: '',
   });
 
@@ -188,6 +204,7 @@ export default function Criar() {
     storedList[itemIndex].deadLineDate = updatedFormData2.deadLineDate
     storedList[itemIndex].deadLineTime = updatedFormData2.deadLineTime
     storedList[itemIndex].type = 'compromisso'
+    storedList[itemIndex].status = 'InTime'
 
     localStorage.setItem('formDataList', JSON.stringify(storedList));
     router.push(`/`); 

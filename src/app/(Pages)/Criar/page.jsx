@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 import {
   Form,
@@ -8,42 +8,67 @@ import {
   Textarea,
   TitleText,
   Main,
-  Spacing
+  Spacing,
+  Wrapper,
+  ErrorBox
 } from './styles';
 import { Button } from "@/components/Button";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { format, parseISO } from 'date-fns';
 import { MobileHeader } from '@/components/MobileHeader';
-import { Wrapper } from './styles';
+
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+import { useForm, Controller } from 'react-hook-form';
 
 
 
+
+
+
+
+
+
+const noteSchema = yup.object({
+  title: yup.string().min(6, "No mínimo 6 caracteres").max(30, "No máximo 30 caracteres").required("Título é obrigatório"),
+  description: yup.string().max(60, "No máximo 60 caracteres").required("Descrição é obrigatória"),
+  message: yup.string().required("Preenchimento obrigatório")
+}).required();
+
+const eventSchema = yup.object({
+  title: yup.string().min(6, "No mínimo 6 caracteres").max(30, "No máximo 30 caracteres").required("Título é obrigatório"),
+  description: yup.string().max(60, "No máximo 60 caracteres").required("Descrição é obrigatória"),
+  deadLineDate: yup.date().typeError('Data inválida').required("Data do Evento é obrigatória"),
+  deadLineTime: yup.string().required("Hora do Evento é obrigatória"),
+  message: yup.string().required("Preenchimento obrigatório")
+}).required();
 
 export default function Criar() {
-  const [formData, setFormData] = useState({
-    id: '',
-    title: '',
-    description: '',
-    message: '',
-    date: '',
-    type: '',
-    deadLineDate: '',
-    deadLineTime: '',
-    status: '',
+  const {
+    control: control1,
+    handleSubmit: handleSubmit1,
+    formState: { errors: errors1, isValid: isValid1 },
+    reset: reset1,
+  } = useForm({
+    resolver: yupResolver(noteSchema),
+    mode: "onBlur",
+    reValidateMode: "onChange",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const {
+    control: control2,
+    handleSubmit: handleSubmit2,
+    formState: { errors: errors2, isValid: isValid2 },
+    reset: reset2,
+  } = useForm({
+    resolver: yupResolver(eventSchema),
+    mode: "onBlur",
+    reValidateMode: "onChange",
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const onSubmit1 = (data) => {
     const formattedTime = new Date().toLocaleTimeString('pt-BR');
     const formattedDateTime = new Date().toLocaleDateString('pt-BR');
     const storedList = JSON.parse(localStorage.getItem('formDataList')) || [];
@@ -54,10 +79,10 @@ export default function Criar() {
       } else {
         return 1;
       }
-    }
+    };
 
     const updatedFormData = {
-      ...formData,
+      ...data,
       date: formattedDateTime,
       time: formattedTime,
       id: verify(),
@@ -70,45 +95,12 @@ export default function Criar() {
     const updatedList = [...storedList, updatedFormData];
     localStorage.setItem('formDataList', JSON.stringify(updatedList));
 
-    setFormData({
-      id: '',
-      title: '',
-      description: '',
-      message: '',
-      date: '',
-      type: '',
-      deadLineDate: '',
-      deadLineTime: '',
-      status: '',
-    });
-
+    reset1();
     console.log(updatedList);
     console.log(formattedDateTime);
   };
 
-  const [formData2, setFormData2] = useState({
-    id: '',
-    title: '',
-    description: '',
-    message: '',
-    date: '',
-    type: '',
-    deadLineDate: '',
-    deadLineTime: '',
-    status: '',
-  });
-
-  const handleChange2 = (e) => {
-    const { name, value } = e.target;
-    setFormData2({
-      ...formData2,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit2 = (e) => {
-    e.preventDefault();
-
+  const onSubmit2 = (data) => {
     const formattedTime2 = new Date().toLocaleTimeString('pt-BR');
     const formattedDateTime2 = new Date().toLocaleDateString('pt-BR');
     const storedList = JSON.parse(localStorage.getItem('formDataList')) || [];
@@ -119,13 +111,15 @@ export default function Criar() {
       } else {
         return 1;
       }
-    }
+    };
+    
 
-    // Ajustando a data do deadline antes de salvar
-    const adjustedDeadLineDate = format(parseISO(formData2.deadLineDate), 'dd/MM/yyyy');
+    var isodate = data.deadLineDate;
+    var adjustedDeadLineDate = isodate.toLocaleDateString('pt-BR');
+    
 
     const updatedFormData2 = {
-      ...formData2,
+      ...data,
       date: formattedDateTime2,
       time: formattedTime2,
       id: verify2(),
@@ -137,18 +131,7 @@ export default function Criar() {
     const updatedList2 = [...storedList, updatedFormData2];
     localStorage.setItem('formDataList', JSON.stringify(updatedList2));
 
-    setFormData2({
-      id: '',
-      title: '',
-      description: '',
-      message: '',
-      date: '',
-      type: '',
-      deadLineDate: '',
-      deadLineTime: '',
-      status: '',
-    });
-
+    reset2();
     console.log(updatedList2);
     console.log(formattedDateTime2);
   };
@@ -160,97 +143,152 @@ export default function Criar() {
       <Wrapper>
         <Spacing />
         <TitleText>Criar nota</TitleText>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit1(onSubmit1)}>
           <FormGroup>
             <Label htmlFor="title">Titulo:</Label>
-            <Input
-              type="text"
-              id="title"
+            <Controller
               name="title"
-              value={formData.title}
-              onChange={handleChange}
+              control={control1}
+              defaultValue=""
+              render={({ field }) => (
+                <Input
+                  type="text"
+                  id="title"
+                  {...field}
+                  placeholder="Título"
+                />
+              )}
             />
+            {errors1.title && <ErrorBox>{errors1.title.message}</ErrorBox>}
           </FormGroup>
           <FormGroup>
             <Label htmlFor="description">Descrição:</Label>
-            <Input
-              type="text"
-              id="description"
+            <Controller
               name="description"
-              value={formData.description}
-              onChange={handleChange}
+              control={control1}
+              defaultValue=""
+              render={({ field }) => (
+                <Input
+                  type="text"
+                  id="description"
+                  {...field}
+                  placeholder="Descrição"
+                />
+              )}
             />
+            {errors1.description && <ErrorBox>{errors1.description.message}</ErrorBox>}
           </FormGroup>
           <FormGroup>
             <Label htmlFor="message">Mensagem:</Label>
-            <Textarea
-              id="message"
+            <Controller
               name="message"
-              value={formData.message}
-              onChange={handleChange}
-            ></Textarea>
+              control={control1}
+              defaultValue=""
+              render={({ field }) => (
+                <Textarea
+                  id="message"
+                  {...field}
+                  placeholder="Mensagem"
+                />
+              )}
+            />
+            {errors1.message && <ErrorBox>{errors1.message.message}</ErrorBox>}
           </FormGroup>
-          <Button title="Criar" variant='secondary' type='submit' />
+          <Button title="Criar" variant='secondary' type='submit' disabled={!isValid1} />
         </Form>
       </Wrapper>
 
       <Wrapper>
         <TitleText>Criar Evento</TitleText>
-        <Form onSubmit={handleSubmit2}>
+        <Form onSubmit={handleSubmit2(onSubmit2)}>
           <FormGroup>
             <Label htmlFor="title">Titulo:</Label>
-            <Input
-              type="text"
-              id="title"
+            <Controller
               name="title"
-              value={formData2.title}
-              onChange={handleChange2}
+              control={control2}
+              defaultValue=""
+              render={({ field }) => (
+                <Input
+                  type="text"
+                  id="title"
+                  {...field}
+                  placeholder="Título"
+                />
+              )}
             />
+            {errors2.title && <ErrorBox>{errors2.title.message}</ErrorBox>}
           </FormGroup>
           <FormGroup>
             <Label htmlFor="description">Descrição:</Label>
-            <Input
-              type="text"
-              id="description"
+            <Controller
               name="description"
-              value={formData2.description}
-              onChange={handleChange2}
+              control={control2}
+              defaultValue=""
+              render={({ field }) => (
+                <Input
+                  type="text"
+                  id="description"
+                  {...field}
+                  placeholder="Descrição"
+                />
+              )}
             />
+            {errors2.description && <ErrorBox>{errors2.description.message}</ErrorBox>}
           </FormGroup>
           <FormGroup>
             <Label htmlFor="deadLineDate">Data do Evento:</Label>
-            <Input
-              type="date"
-              id="date"
+            <Controller
               name="deadLineDate"
-              value={formData2.deadLineDate}
-              onChange={handleChange2}
+              control={control2}
+              defaultValue=""
+              render={({ field }) => (
+                <Input
+                  type="date"
+                  id="date"
+                  {...field}
+                />
+              )}
             />
+            {errors2.deadLineDate && <ErrorBox>{errors2.deadLineDate.message}</ErrorBox>}
           </FormGroup>
           <FormGroup>
             <Label htmlFor="deadLineTime">Hora do Evento:</Label>
-            <Input
-              type="time"
-              id="time"
+            <Controller
               name="deadLineTime"
-              value={formData2.deadLineTime}
-              onChange={handleChange2}
-              step="1"
+              control={control2}
+              defaultValue=""
+              render={({ field }) => (
+                <Input
+                  type="time"
+                  id="time"
+                  {...field}
+                  step="1"
+                />
+              )}
             />
+            {errors2.deadLineTime && <ErrorBox>{errors2.deadLineTime.message}</ErrorBox>}
           </FormGroup>
           <FormGroup>
             <Label htmlFor="message">Mensagem:</Label>
-            <Textarea
-              id="message"
+            <Controller
               name="message"
-              value={formData2.message}
-              onChange={handleChange2}
-            ></Textarea>
+              control={control2}
+              defaultValue=""
+              render={({ field }) => (
+                <Textarea
+                  id="message"
+                  {...field}
+                  placeholder="Mensagem"
+                />
+              )}
+            />
+            {errors2.message && <ErrorBox>{errors2.message.message}</ErrorBox>}
           </FormGroup>
-          <Button title="Criar" variant='secondary' type='submit' />
+          <Button title="Criar" variant='secondary' type='submit' disabled={!isValid2} />
+          
         </Form>
       </Wrapper>
-      <Footer />
+      <Footer></Footer>
     </Main>
   );
 }

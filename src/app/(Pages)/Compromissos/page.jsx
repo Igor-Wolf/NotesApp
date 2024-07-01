@@ -4,8 +4,13 @@ import Image from "next/image";
 import { Button } from "@/components/Button";
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer";
-import { Main } from "./styles";
+import {
+  Main,
+  Spacing,
+  BodyContent
+ } from "./styles";
 import { MobileHeader } from "@/components/MobileHeader";
+import { CardsContainerEvent } from "@/components/CardsContainerEvent";
 
 
 
@@ -23,11 +28,17 @@ export default function Compromissos() {
 
       </Header>
       <MobileHeader></MobileHeader>
+      <BodyContent>
+        <Spacing></Spacing>
+        <CardsContainerEvent></CardsContainerEvent>
       
-      <p>Compromissos</p>
-      <Button title="Começar agora" variant='secondary' onClick={alerta} type='button'></Button>
+      
+        
       
       
+
+
+      </BodyContent>
       <Footer></Footer>
     </Main>
   );

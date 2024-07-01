@@ -17,7 +17,7 @@ const Header = () => {
       <ul>
         <Link href={"/"}>
         <TitlePage>
-          NOTES
+          NOTAS
         </TitlePage> 
         
         </Link>

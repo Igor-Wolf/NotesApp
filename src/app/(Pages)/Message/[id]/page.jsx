@@ -106,8 +106,15 @@ export default function Message() {
 
         </BoxMessage>  
         <ButtonsBox>
-          <Button title="Concluir" variant='secondary' onClick={concluir} />
-          <Button title="Em Andamento" variant='secondary' onClick={andamento} />
+
+          {note[0].type === "compromisso" ?<>
+          
+            <Button title="Concluir" variant='secondary' onClick={concluir} />
+            <Button title="Em Andamento" variant='secondary' onClick={andamento} />
+          
+          </>
+          
+            : null}          
           <Button title="Editar" variant='secondary' onClick={editar} />
           <Button title="Excluir" variant='secondary' onClick={excluir} />
 

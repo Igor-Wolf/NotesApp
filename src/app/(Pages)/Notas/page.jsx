@@ -5,8 +5,16 @@ import Image from "next/image";
 import { Button } from "@/components/Button";
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer";
-import { Main } from "./styles";
+import {
+  Main,
+  Spacing,
+  BodyContent
+ } from "./styles";
 import { MobileHeader } from "@/components/MobileHeader";
+import { CardsContainerCompRed } from "@/components/CardsContainerCompRed";
+import { CardsContainerComp } from "@/components/CardsContainerComp";
+import { CardsContainer } from "@/components/CardsContainer";
+import {CardsContainerNotas} from "@/components/CardsContainerNotas"
 
 
 
@@ -23,16 +31,24 @@ const alerta = () => {
 export default function Notas() {
   return (
     <Main>
-
       <Header>
 
       </Header>
       <MobileHeader></MobileHeader>
+      <BodyContent>
+        <Spacing></Spacing>
+        <CardsContainerNotas></CardsContainerNotas>
       
-      <p>notas</p>
+      
+        
       
       
+
+
+      </BodyContent>
       <Footer></Footer>
+
+      
     </Main>
   );
 }

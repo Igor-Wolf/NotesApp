@@ -25,6 +25,7 @@ export const BoxMessage = styled.div`
     background-color: white;
     border-radius:1rem;
     margin-bottom: 1rem;
+    margin-top: 1rem;
     
     width: 70vw;
     padding: 1rem;

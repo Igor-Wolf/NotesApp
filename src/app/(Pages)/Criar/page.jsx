@@ -24,13 +24,6 @@ import * as yup from "yup";
 import { useForm, Controller } from 'react-hook-form';
 
 
-
-
-
-
-
-
-
 const noteSchema = yup.object({
   title: yup.string().min(6, "No mínimo 6 caracteres").max(30, "No máximo 30 caracteres").required("Título é obrigatório"),
   description: yup.string().max(60, "No máximo 60 caracteres").required("Descrição é obrigatória"),
@@ -44,22 +37,6 @@ const eventSchema = yup.object({
   deadLineTime: yup.string().required("Hora do Evento é obrigatória"),
   message: yup.string().required("Preenchimento obrigatório")
 }).required();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 export default function Criar() {
@@ -153,36 +130,13 @@ export default function Criar() {
     console.log(formattedDateTime2);
   };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
     <Main>
       <Header />
       <MobileHeader />
       <Wrapper>
         <Spacing />
-        <TitleText>Criar nota</TitleText>
+        <TitleText>CRIAR NOTA</TitleText>
         <Form onSubmit={handleSubmit1(onSubmit1)}>
           <FormGroup>
             <Label htmlFor="title">Titulo:</Label>
@@ -239,7 +193,7 @@ export default function Criar() {
       </Wrapper>
 
       <Wrapper>
-        <TitleText>Criar Evento</TitleText>
+        <TitleText>CRIAR EVENTO</TitleText>
         <Form onSubmit={handleSubmit2(onSubmit2)}>
           <FormGroup>
             <Label htmlFor="title">Titulo:</Label>

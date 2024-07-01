@@ -24,10 +24,15 @@ import { useParams, useRouter } from "next/navigation";
 import { MobileHeader } from "@/components/MobileHeader";
 import { BodyContent, Spacing } from "@/app/styles";
 
+import React, { useState } from 'react';
+
 export default function Message() {  
 
   const params = useParams();
   const router = useRouter();
+
+  
+  
 
     const storedList = JSON.parse(localStorage.getItem('formDataList')) || [];
 
@@ -35,7 +40,9 @@ export default function Message() {
     const itemIndex = storedList.findIndex(item => item.id === parseInt(params.id));
   console.log(note)
   
-    console.log(storedList[itemIndex].status)
+  console.log(storedList[itemIndex].status)
+  const [texto, setTexto] = useState(storedList[itemIndex].status);
+  
 
 
   const concluir = () => {
@@ -44,6 +51,7 @@ export default function Message() {
     localStorage.clear();
     localStorage.setItem('formDataList', JSON.stringify(storedList))
     console.log(storedList[itemIndex].status)
+    setTexto(storedList[itemIndex].status)
   }
   
   const andamento = () => {
@@ -52,6 +60,7 @@ export default function Message() {
     localStorage.clear();
     localStorage.setItem('formDataList', JSON.stringify(storedList))
     console.log(storedList[itemIndex].status)
+    setTexto(storedList[itemIndex].status)
   }
 
   const editar = () => {
@@ -93,14 +102,15 @@ export default function Message() {
         
           <RowDate>
           <DateEvent><strong>Data do Evento:</strong> {note[0].deadLineDate}</DateEvent>
-          <TimeEvent><strong>Hora do Evento:</strong> {note[0].deadLineTime}</TimeEvent>
+              <TimeEvent><strong>Hora do Evento:</strong> {note[0].deadLineTime}</TimeEvent>
+              <Status><strong>Status:</strong> {texto}</Status>
         </RowDate> : null      
         
         
         }
           
           
-          {/* <Status><strong>Status:</strong> {note[0].status}</Status> */}
+          
           
           <MessageContent><strong>Mensagem:</strong> <br /> <br /> {note[0].message}</MessageContent>
 

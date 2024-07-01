@@ -8,7 +8,7 @@ import { CardsComp } from '../CardsComp';
 import React, { useState, useEffect } from 'react';
 import { parse, isBefore, isEqual, format } from 'date-fns';
 
-const CardsContainerEvent = () => {
+const CardsContainerEvent = ({busca}) => {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -28,10 +28,10 @@ const CardsContainerEvent = () => {
           
 
           if (isBefore(parse(itemDate, 'dd/MM/yyyy', new Date()), parse(currentDate, 'dd/MM/yyyy', new Date()))) {
-            item.status = 'Lose';
+            item.status = 'Late';
             console.log("entrou aqui")
           } else if (isEqual(parse(itemDate, 'dd/MM/yyyy', new Date()), parse(currentDate, 'dd/MM/yyyy', new Date())) && item.deadLineTime < currentTime) {
-            item.status = 'Lose';
+            item.status = 'Late';
           }
         
         }
@@ -47,15 +47,19 @@ const CardsContainerEvent = () => {
     setCards(storedList);
   }, []);
 
-  const filteredCards = cards.filter((card) => card.type === 'compromisso');
-  const lastEightCards = filteredCards.reverse();
+  const filteredCards = cards
+  .filter(card => card.title.includes(busca))
+  .filter(card => card.type === "compromisso")
+  .reverse();
+
+
 
   return (
     <ContainerCards>
       <Wrapper>
-        <TitleCard>Eventos</TitleCard>
+        
         <BoxCard>
-          {lastEightCards.map((card, index) => (
+          {filteredCards.map((card, index) => (
             <CardsComp
             key={index}
             title={card.title || "Sem título"}

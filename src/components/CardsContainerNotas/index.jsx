@@ -1,16 +1,13 @@
-
 import {
   BoxCard,
   ContainerCards,
   TitleCard,
   Wrapper
- } from './styles'
+} from './styles'
 import { Cards } from '../Cards'
 import React, { useState, useEffect } from 'react';
 
-
-const CardsContainerNotas = () => {
-
+const CardsContainerNotas = ({ busca }) => {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -18,37 +15,29 @@ const CardsContainerNotas = () => {
     setCards(storedList);
   }, []);
 
-  const filteredCards = cards.filter(card => card.type === "nota");
-  const lastEightCards = filteredCards.reverse();
+  const filteredCards = cards
+    .filter(card => card.title.includes(busca))
+    .filter(card => card.type === "nota")
+    .reverse();
 
   return (
-    
-    <ContainerCards> 
+    <ContainerCards>
       <Wrapper>
-        <TitleCard>Notas</TitleCard>
         
         <BoxCard>
-          
-        {lastEightCards.map((card, index) => (
-          <Cards
-            key={index}
-            title={card.title || "Sem título"}
-            description={card.description || "Sem descrição"}
-            date={card.date || "Sem data"}
-            id={card.id}
-            />               
-        
+          {filteredCards.map((card, index) => (
+            <Cards
+              key={index}
+              title={card.title || "Sem título"}
+              description={card.description || "Sem descrição"}
+              date={card.date || "Sem data"}
+              id={card.id}
+            />
           ))}
-
-
         </BoxCard>
-          
-        
       </Wrapper>
-      </ContainerCards>
-      
-      
-  )
+    </ContainerCards>
+  );
 }
 
-export {CardsContainerNotas}
+export { CardsContainerNotas }

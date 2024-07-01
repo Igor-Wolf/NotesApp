@@ -19,14 +19,14 @@ const CardsContainerCompRed = () => {
     setCards(storedList);
   }, []);
 
-  const filteredCards = cards.filter(card => card.type === "compromisso" && card.status === "Lose");
+  const filteredCards = cards.filter(card => card.type === "compromisso" && card.status === "Late");
   const lastEightCards = filteredCards.slice(-8).reverse();
 
   return (
     
     <ContainerCards> 
       <Wrapper>
-        <TitleCard>Eventos em Atraso</TitleCard>
+        <TitleCard>EVENTOS EM ATRASO</TitleCard>
         
         <BoxCard>
         

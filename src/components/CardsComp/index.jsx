@@ -6,7 +6,7 @@ import Link from 'next/link';
 const CardsComp = ({title, description, date, deadLine, status, id}) => {
   console.log('Props recebidas:'); // Verifique se as props estão corretamente recebidas
   const getColor = (condition) => {
-    if (condition === "Lose") return "red";
+    if (condition === "Late") return "red";
     if (condition === "OK") return "green";
     if (condition === "InTime") return "blue";
     return "defaultColor"; // Cor padrão, se necessário

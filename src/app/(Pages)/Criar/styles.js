@@ -37,10 +37,13 @@ export const Wrapper = styled.div`
 
 export const TitleText = styled.div`
 
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 600;
   background-color: white;
   color: black;
+  margin-top: 0.5rem
+
+  
 
 `
 

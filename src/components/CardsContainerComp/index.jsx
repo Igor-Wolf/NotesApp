@@ -28,10 +28,10 @@ const CardsContainerComp = () => {
           
 
           if (isBefore(parse(itemDate, 'dd/MM/yyyy', new Date()), parse(currentDate, 'dd/MM/yyyy', new Date()))) {
-            item.status = 'Lose';
+            item.status = 'Late';
             console.log("entrou aqui")
           } else if (isEqual(parse(itemDate, 'dd/MM/yyyy', new Date()), parse(currentDate, 'dd/MM/yyyy', new Date())) && item.deadLineTime < currentTime) {
-            item.status = 'Lose';
+            item.status = 'Late';
           }
         
         }
@@ -53,7 +53,7 @@ const CardsContainerComp = () => {
   return (
     <ContainerCards>
       <Wrapper>
-        <TitleCard>Ultimos Eventos</TitleCard>
+        <TitleCard>ULTIMOS EVENTOS</TitleCard>
         <BoxCard>
           {lastEightCards.map((card, index) => (
             <CardsComp

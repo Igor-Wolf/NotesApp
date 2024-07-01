@@ -25,7 +25,7 @@ const CardsContainer = () => {
     
     <ContainerCards> 
       <Wrapper>
-        <TitleCard>Ultimas Notas</TitleCard>
+        <TitleCard>ULTIMAS NOTAS</TitleCard>
         
         <BoxCard>
           

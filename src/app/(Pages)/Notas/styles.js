@@ -46,3 +46,33 @@ export const Spacing = styled.div`
 
     
 `
+
+export const Input = styled.input`
+  width: 60%;
+  padding: 8px;
+  box-sizing: border-box; 
+
+  border-radius:1rem;
+  border: 3px solid gray;
+
+  background-color: white;
+  color: black;
+  @media (max-width: 768px) {
+    width: 85%;
+    margin-bottom: 0.6rem;
+  }
+
+`;
+
+export const TitleCard = styled.p`
+
+    font-size: 1.2rem;
+    font-weight: 600;
+    color:white;
+    text-align: center;
+    margin-bottom:1rem;
+    margin-top: 1rem;
+
+
+
+`

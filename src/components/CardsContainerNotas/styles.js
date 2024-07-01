@@ -7,7 +7,7 @@ export const ContainerCards = styled.div`
     flex-wrap: wrap;
     gap: 1rem;
     padding: 1rem;
-    align-items: center
+    align-items: center;
 
 `
 

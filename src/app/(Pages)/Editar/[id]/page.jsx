@@ -175,7 +175,7 @@ export default function Criar() {
       <MobileHeader />
       <Wrapper>
         <Spacing />
-        <TitleText>Editar nota</TitleText>
+        <TitleText>EDITAR NOTA</TitleText>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
             <Label htmlFor="title">Titulo:</Label>
@@ -209,7 +209,7 @@ export default function Criar() {
       </Wrapper>
 
       <Wrapper>
-        <TitleText>Editar Evento</TitleText>
+        <TitleText>EDITAR EVENTO</TitleText>
         <Form onSubmit={handleSubmit2(onSubmit2)}>
           <FormGroup>
             <Label htmlFor="title">Titulo:</Label>
